@@ -1,0 +1,50 @@
+<!-- product2.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FireCracker Eoka - EokaGaming</title>
+    <style>
+        body {
+            background-color: #2a2a2a;
+            color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+        .checkout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #00ccff;
+            color: #ffffff;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 6px;
+            z-index: 1000;
+        }
+        .checkout-btn:hover {
+            background-color: #009ec7;
+        }
+    </style>
+</head>
+<body>
+    <a class="checkout-btn" href="/checkout">Checkout 🛒</a>
+    <h1>FireCracker Eoka</h1>
+    <img src="/get_image/firecracker_eoka.png" style="width:300px;border-radius:8px;">
+    <p>Blast your enemies in festive style with the FireCracker Eoka! Its colorful, explosive-themed design is sure to make every shot feel like a celebration in Rust.</p>
+    <button onclick="addToCart(2)" style="padding:10px 20px;">Add to Cart</button>
+    <br><br>
+    <a href="/" style="color:#00ccff;text-decoration:none;">Back to Home</a>
+    <script>
+        function addToCart(id) {
+            let qty = prompt("Enter quantity:", "1");
+            if(qty) {
+                fetch(`/cart/add/${id}/${qty}`)
+                .then(res => res.text())
+                .then(msg => alert(msg));
+            }
+        }
+    </script>
+</body>
+</html>

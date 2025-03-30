@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout - EokaGaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: url("/get_image/background.png") no-repeat center center fixed;
+            background-size: cover;
+            color: #f0f0f0;
+        }
+        .login-box, .cart-box {
+            background-color: #383838;
+            padding: 30px;
+            margin: 20px auto;
+            width: 400px;
+            border-radius: 10px;
+        }
+        input[type=text], input[type=password] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: none;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #00ccff;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #009ec7;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <a href="/" style="position:fixed;top:20px;right:20px;background-color:#00ccff;color:#ffffff;padding:10px 15px;text-decoration:none;border-radius:6px;">Home 🏠</a>
+    <h1>Checkout</h1>
+    <div class="login-box">
+        <h3>Please Log In</h3>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Log In</button>
+    </div>
+
+    <div id="cart" class="cart-box" style="display:none;">
+        <h3>Your Cart</h3>
+        <div id="cart-items"></div>
+        <button onclick="buyNow()">Buy Now</button>
+    </div>
+
+    <script>
+        const products = {
+            1: {name: "Carrot Eoka", img: "carrot_eoka.jpg"},
+            2: {name: "FireCracker Eoka", img: "firecracker_eoka.png"},
+            3: {name: "HotDog Eoka", img: "hotdog_eoka.png"},
+            4: {name: "Minecraft Eoka", img: "minecraft_eoka.jpeg"}
+        };
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch(`/login?username=${username}&password=${password}`)
+                .then(res => {
+                    if (res.status === 202) {
+                        loadCart();
+                    } else {
+                        alert('🚫 Login failed! Unauthorized.');
+                    }
+                });
+        }
+
+        function loadCart() {
+            fetch('/cart_data')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('cart').style.display = 'block';
+                    const cartItems = document.getElementById('cart-items');
+                    cartItems.innerHTML = '';
+                    data.cart.forEach(item => {
+                        cartItems.innerHTML += `
+                            <div class="cart-item">
+                                <img src="/get_image/${products[item.id].img}">
+                                <span>${products[item.id].name} (Qty: ${item.qty})</span>
+                            </div>`;
+                    });
+                });
+        }
+
+        function buyNow() {
+            fetch('/confirm_purchase')
+                .then(response => response.text())
+                .then(cart => {
+                    alert('✅ Purchase Successful!\n\nYour Order:\n' + cart);
+                    fetch('/clear_cart', { method: 'POST' });
+                });
+        }
+    </script>
+</body>
+</html>

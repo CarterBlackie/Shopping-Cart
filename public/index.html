@@ -1,0 +1,90 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EokaGaming</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: url("/get_image/background.png") no-repeat center center fixed;
+            background-size: cover;
+            color: #f0f0f0;
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.75);
+            min-height: 100vh;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        .product-card {
+            background-color: #2a2a2a;
+            border: 1px solid #444;
+            padding: 15px;
+            border-radius: 12px;
+            width: 250px;
+            text-align: center;
+        }
+        .product-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: contain;
+            border-radius: 6px;
+            background-color: white;
+        }
+        .product-card a {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #00ccff;
+        }
+        .checkout-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #00ccff;
+            color: #ffffff;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 6px;
+            z-index: 1000;
+        }
+        .checkout-btn:hover {
+            background-color: #009ec7;
+        }
+    </style>
+</head>
+<body>
+    <a class="checkout-btn" href="/checkout">Checkout 🛒</a>
+    <div class="overlay">
+        <h1>Welcome to EokaGaming</h1>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="/get_image/carrot_eoka.jpg">
+                <a href="/product/1">Carrot Eoka</a>
+            </div>
+            <div class="product-card">
+                <img src="/get_image/firecracker_eoka.png">
+                <a href="/product/2">FireCracker Eoka</a>
+            </div>
+            <div class="product-card">
+                <img src="/get_image/hotdog_eoka.png">
+                <a href="/product/3">HotDog Eoka</a>
+            </div>
+            <div class="product-card">
+                <img src="/get_image/minecraft_eoka.jpeg">
+                <a href="/product/4">Minecraft Eoka</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
